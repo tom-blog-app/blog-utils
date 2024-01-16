@@ -15,7 +15,7 @@ type MicroApp struct {
 	RegisterService func(*grpc.Server)
 }
 
-func (app *MicroApp) register() {
+func (app *MicroApp) Register() {
 	log.Println("Registering gRPC server..." + app.GrpcPort)
 
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%s", app.GrpcPort))
@@ -32,7 +32,7 @@ func (app *MicroApp) register() {
 	}
 }
 
-func (app *MicroApp) checkHealth() {
+func (app *MicroApp) CheckHealth() {
 	healthServer := health.NewServer()
 	healthServer.SetServingStatus("", healthpb.HealthCheckResponse_SERVING)
 	healthpb.RegisterHealthServer(app.GrpcServer, healthServer)
